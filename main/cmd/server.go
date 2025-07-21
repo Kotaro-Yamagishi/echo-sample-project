@@ -1,8 +1,8 @@
 package main
 
 import (
-	"echoProject/main/src/domain"
-	"echoProject/main/src/infrastructure"
+	"echoProject/main/internal/models"
+	"echoProject/main/internal/app/router"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -15,7 +15,7 @@ var (
 
 func main() {
 	dbinit()
-	infrastructure.Init()
+	router.Init()
 }
 
 func dbinit() {

@@ -1,4 +1,4 @@
-package database
+package repositories
 
 type SqlHandler interface {
 	Create(object interface{})

@@ -1,10 +1,12 @@
-package database
+package repositories
 
-import "echoProject/main/src/domain"
+import "echoProject/main/internal/models"
+
 
 type UserRepository struct {
 	SqlHandler
 }
+
 
 func (db *UserRepository) Store(u domain.User) {
 	db.Create(&u)
@@ -18,4 +20,9 @@ func (db *UserRepository) Select() []domain.User {
 func (db *UserRepository) Delete(id string) {
 	user := []domain.User{}
 	db.DeleteById(&user, id)
+}
+
+// コンストラクタ
+func NewUserRepository(sqlHandler SqlHandler) UserRepositoryIF {
+    return &UserRepository{sqlHandler}
 }

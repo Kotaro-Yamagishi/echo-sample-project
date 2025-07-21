@@ -1,4 +1,4 @@
-package api
+package handlers
 
 type Context interface {
 	Param(string) string

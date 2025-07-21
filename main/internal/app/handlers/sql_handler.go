@@ -1,7 +1,7 @@
-package infrastructure
+package handlers
 
 import (
-	"echoProject/main/src/itnerfaces/database"
+	"echoProject/main/internal/app/repositories"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -10,7 +10,7 @@ type SqlHandler struct {
 	db *gorm.DB
 }
 
-func NewSqlHandler() database.SqlHandler {
+func NewSqlHandler() repositories.SqlHandler {
 	dsn := "root:password@tcp(127.0.0.1:3306)/go_sample?charset=utf8mb4&parseTime=True&loc=Local"
 	open, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

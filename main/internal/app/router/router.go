@@ -1,15 +1,16 @@
-package infrastructure
+package router
 
 import (
-	"echoProject/main/src/itnerfaces/api"
-	"github.com/labstack/echo/v4"
+	"echoProject/main/internal/app/handlers"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 func Init() {
 	// Echo instance
 	e := echo.New()
-	userController := api.NewUserController(NewSqlHandler())
+	userController := handlers.NewUserHandler(handlers.NewSqlHandler())
 
 	e.GET("/users", func(c echo.Context) error {
 		users := userController.GetUser()
