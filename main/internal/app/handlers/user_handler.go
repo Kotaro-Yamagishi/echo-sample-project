@@ -3,7 +3,7 @@ package handlers
 import (
 	"echoProject/main/internal/app/repositories"
 	"echoProject/main/internal/app/services"
-	domain "echoProject/main/internal/models"
+	"echoProject/main/internal/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -21,7 +21,7 @@ func NewUserHandler(sqlHandler repositories.SqlHandler) *UserHandler {
 }
 
 func (handler *UserHandler) Create(c echo.Context) {
-	u := domain.User{}
+	u := models.User{}
 	c.Bind(&u)
 
 	handler.UserService.Add(u)
@@ -30,7 +30,7 @@ func (handler *UserHandler) Create(c echo.Context) {
 	c.JSON(201, createdUsers)
 }
 
-func (handler *UserHandler) GetUser() []domain.User {
+func (handler *UserHandler) GetUser() []models.User {
 	res := handler.UserService.GetInfo()
 	return res
 }

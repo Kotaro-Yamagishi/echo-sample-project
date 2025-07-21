@@ -1,4 +1,4 @@
-package handlers
+package infrastructure
 
 import (
 	"echoProject/main/internal/app/repositories"

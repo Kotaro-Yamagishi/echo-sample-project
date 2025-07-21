@@ -13,11 +13,11 @@ func NewUserService(repo repositories.UserRepositoryIF) UserServiceIF {
     return &UserService{UserRepository: repo}
 }
 
-func (interactor *UserService) Add(u domain.User)  {
+func (interactor *UserService) Add(u models.User)  {
     interactor.UserRepository.Store(u)
 }
 
-func (interactor *UserService) GetInfo() []domain.User {
+func (interactor *UserService) GetInfo() []models.User {
     return interactor.UserRepository.Select()
 }
 

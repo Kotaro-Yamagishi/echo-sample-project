@@ -3,7 +3,7 @@ package repositories
 import "echoProject/main/internal/models"
 
 type UserRepositoryIF interface {
-    Store(u domain.User) 
-    Select() []domain.User
+    Store(u models.User) 
+    Select() []models.User
     Delete(id string)
 }

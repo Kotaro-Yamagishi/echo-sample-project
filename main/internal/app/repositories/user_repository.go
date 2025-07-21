@@ -8,17 +8,17 @@ type UserRepository struct {
 }
 
 
-func (db *UserRepository) Store(u domain.User) {
+func (db *UserRepository) Store(u models.User) {
 	db.Create(&u)
 }
 
-func (db *UserRepository) Select() []domain.User {
-	user := []domain.User{}
+func (db *UserRepository) Select() []models.User {
+	user := []models.User{}
 	db.FindAll(&user)
 	return user
 }
 func (db *UserRepository) Delete(id string) {
-	user := []domain.User{}
+	user := []models.User{}
 	db.DeleteById(&user, id)
 }
 

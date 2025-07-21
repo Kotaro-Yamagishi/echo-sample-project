@@ -3,7 +3,7 @@ package services
 import "echoProject/main/internal/models"
 
 type UserServiceIF interface {
-    Add(u domain.User) 
-    GetInfo() []domain.User
+    Add(u models.User) 
+    GetInfo() []models.User
     Delete(id string) 
 }

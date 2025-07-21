@@ -2,6 +2,7 @@ package router
 
 import (
 	"echoProject/main/internal/app/handlers"
+	"echoProject/main/internal/app/infrastructure"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -10,7 +11,7 @@ import (
 func Init() {
 	// Echo instance
 	e := echo.New()
-	userController := handlers.NewUserHandler(handlers.NewSqlHandler())
+	userController := handlers.NewUserHandler(infrastructure.NewSqlHandler())
 
 	e.GET("/users", func(c echo.Context) error {
 		users := userController.GetUser()
