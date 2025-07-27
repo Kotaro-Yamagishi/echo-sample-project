@@ -11,6 +11,7 @@ import (
 	controller2 "echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource"
 	"echoProject/main/infra/repository/user"
+	"echoProject/main/infra/things/initializer"
 	"echoProject/main/infra/things/mysql"
 	"echoProject/main/usecase"
 	"github.com/google/wire"
@@ -30,9 +31,17 @@ func InitializeController() (*ControllersSet, error) {
 	return controllersSet, nil
 }
 
+func InitializeDB() (*initializeDBSet, error) {
+	gorm_DB := initializer.NewGormDBImpl()
+	diInitializeDBSet := &initializeDBSet{
+		Gorm_DB: gorm_DB,
+	}
+	return diInitializeDBSet, nil
+}
+
 // wire.go:
 
-var infrastructureSet = wire.NewSet(mysql.NewSqlHandler, datasource.NewUserDataSource)
+var infrastructureSet = wire.NewSet(mysql.NewSqlHandler, datasource.NewUserDataSource, initializer.NewGormDBImpl)
 
 var repositorySet = wire.NewSet(user.NewUserRepository)
 
@@ -42,4 +51,8 @@ var controllerSet = wire.NewSet(controller.NewUserController)
 
 type ControllersSet struct {
 	UserController controller2.User
+}
+
+type initializeDBSet struct {
+	Gorm_DB initializer.Gorm_DB
 }

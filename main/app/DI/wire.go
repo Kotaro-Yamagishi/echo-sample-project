@@ -8,6 +8,7 @@ import (
 	con "echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource"
 	"echoProject/main/infra/repository/user"
+	"echoProject/main/infra/things/initializer"
 	"echoProject/main/infra/things/mysql"
 	"echoProject/main/usecase"
 
@@ -17,6 +18,7 @@ import (
 var infrastructureSet = wire.NewSet(
 	mysql.NewSqlHandler,
 	datasource.NewUserDataSource,
+	initializer.NewGormDBImpl,
 )
 
 var repositorySet = wire.NewSet(
@@ -36,6 +38,10 @@ type ControllersSet struct {
 	UserController con.User
 }
 
+type initializeDBSet struct{
+	Gorm_DB initializer.Gorm_DB
+}
+
 func InitializeController() (*ControllersSet,error) {
 	wire.Build(
 		infrastructureSet,
@@ -48,3 +54,12 @@ func InitializeController() (*ControllersSet,error) {
 	return nil, nil
 }
 
+
+func InitializeDB() (*initializeDBSet, error) {
+	wire.Build(
+		infrastructureSet,
+		wire.Struct(new(initializeDBSet), "*"),
+	)
+
+	return nil, nil
+}
