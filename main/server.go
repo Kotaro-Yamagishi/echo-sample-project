@@ -1,8 +1,9 @@
 package main
 
 import (
-	"echoProject/main/internal/models"
-	"echoProject/main/internal/app/router"
+	"echoProject/main/app/router"
+	"echoProject/main/domain/entity"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -23,5 +24,5 @@ func dbinit() {
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 	}
-	db.Migrator().CreateTable(models.User{})
+	db.Migrator().CreateTable(entity.User{})
 }

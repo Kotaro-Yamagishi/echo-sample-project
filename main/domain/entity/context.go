@@ -1,4 +1,4 @@
-package handlers
+package entity
 
 type Context interface {
 	Param(string) string

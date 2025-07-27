@@ -1,4 +1,4 @@
-package repositories
+package mysql
 
 type SqlHandler interface {
 	Create(object interface{})

@@ -1,6 +1,5 @@
-package models
+package entity
 
-// Entity の定義
 // どの層からも呼び出し可能
 
 type User struct {
