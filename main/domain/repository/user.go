@@ -1,6 +1,8 @@
 package userRepository
 
-import "echoProject/main/domain/entity"
+import (
+	"echoProject/main/domain/entity"
+)
 
 type User interface {
 	Store(u entity.User)

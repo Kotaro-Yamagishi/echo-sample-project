@@ -8,8 +8,8 @@ import (
 	con "echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource"
 	"echoProject/main/infra/repository/user"
-	"echoProject/main/infra/things/initializer"
 	"echoProject/main/infra/things/mysql"
+	"echoProject/main/infra/things/sqlboiler"
 	"echoProject/main/usecase"
 
 	"github.com/google/wire"
@@ -18,7 +18,7 @@ import (
 var infrastructureSet = wire.NewSet(
 	mysql.NewSqlHandler,
 	datasource.NewUserDataSource,
-	initializer.NewGormDBImpl,
+	sqlboiler.NewSQLBoilerImpl,
 )
 
 var repositorySet = wire.NewSet(
@@ -39,7 +39,7 @@ type ControllersSet struct {
 }
 
 type initializeDBSet struct{
-	Gorm_DB initializer.Gorm_DB
+	SqlBoiler sqlboiler.SQLBoiler
 }
 
 func InitializeController() (*ControllersSet,error) {
@@ -53,7 +53,6 @@ func InitializeController() (*ControllersSet,error) {
 
 	return nil, nil
 }
-
 
 func InitializeDB() (*initializeDBSet, error) {
 	wire.Build(

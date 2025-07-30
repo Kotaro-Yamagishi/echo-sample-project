@@ -1,0 +1,14 @@
+output = "./main/domain/model"
+wipe = true
+no-tests = true
+add-enum-types = true
+pkgname = "model"
+add-global-variants = true
+
+[mysql]
+dbname = "go_sample"
+host = "localhost"
+port = 3306
+user = "root"
+pass = "password"
+sslmode = "false"

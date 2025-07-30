@@ -3,10 +3,13 @@ package main
 import (
 	di "echoProject/main/app/DI"
 	"echoProject/main/app/router"
+
+	"github.com/aarondl/sqlboiler/v4/boil"
 )
 
 func main() {
 	dbinit()
+	
 	router.Init()
 }
 
@@ -15,5 +18,5 @@ func dbinit() {
 	if err != nil {
 		panic(err)
 	}
-	db.Gorm_DB.DBinit()
+	boil.SetDB(db.SqlBoiler.ConnectDB())
 }

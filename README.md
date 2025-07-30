@@ -65,6 +65,11 @@ cd docker/mysql
 docker compose up
 ```
 2. go アプリケーションの起動
+3. 中に入って確認
+   1. docker exec -it コンテナID mysql -uroot -p
+
+コンテナ削除
+docker compose down -v
 
 ### 動作確認
 

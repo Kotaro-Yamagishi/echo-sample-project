@@ -11,8 +11,8 @@ import (
 	controller2 "echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource"
 	"echoProject/main/infra/repository/user"
-	"echoProject/main/infra/things/initializer"
 	"echoProject/main/infra/things/mysql"
+	"echoProject/main/infra/things/sqlboiler"
 	"echoProject/main/usecase"
 	"github.com/google/wire"
 )
@@ -20,8 +20,8 @@ import (
 // Injectors from wire.go:
 
 func InitializeController() (*ControllersSet, error) {
-	sqlHandler := mysql.NewSqlHandler()
-	datasourceUser := datasource.NewUserDataSource(sqlHandler)
+	sqlBoiler := sqlboiler.NewSQLBoilerImpl()
+	datasourceUser := datasource.NewUserDataSource(sqlBoiler)
 	userRepositoryUser := user.NewUserRepository(datasourceUser)
 	userService := usecase.NewUserService(userRepositoryUser)
 	controllerUser := controller.NewUserController(userService)
@@ -32,16 +32,16 @@ func InitializeController() (*ControllersSet, error) {
 }
 
 func InitializeDB() (*initializeDBSet, error) {
-	gorm_DB := initializer.NewGormDBImpl()
+	sqlBoiler := sqlboiler.NewSQLBoilerImpl()
 	diInitializeDBSet := &initializeDBSet{
-		Gorm_DB: gorm_DB,
+		SqlBoiler: sqlBoiler,
 	}
 	return diInitializeDBSet, nil
 }
 
 // wire.go:
 
-var infrastructureSet = wire.NewSet(mysql.NewSqlHandler, datasource.NewUserDataSource, initializer.NewGormDBImpl)
+var infrastructureSet = wire.NewSet(mysql.NewSqlHandler, datasource.NewUserDataSource, sqlboiler.NewSQLBoilerImpl)
 
 var repositorySet = wire.NewSet(user.NewUserRepository)
 
@@ -54,5 +54,5 @@ type ControllersSet struct {
 }
 
 type initializeDBSet struct {
-	Gorm_DB initializer.Gorm_DB
+	SqlBoiler sqlboiler.SQLBoiler
 }

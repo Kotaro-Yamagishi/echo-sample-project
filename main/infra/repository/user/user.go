@@ -21,9 +21,17 @@ func (db *User_impl) Store(u entity.User) {
 }
 
 func (db *User_impl) Select() []entity.User {
-	user := db.ds.Select()
-	return user
+	users := db.ds.Select()
+	var entities []entity.User
+	for _, u := range users {
+		entities = append(entities, entity.User{
+			ID:   u.ID,
+			Name: u.Name,
+		})
+	}
+	return entities
 }
+
 func (db *User_impl) Delete(id string) {
 	db.ds.Delete(id)
 }
