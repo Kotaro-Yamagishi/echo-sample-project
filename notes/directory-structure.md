@@ -1,78 +1,58 @@
 # ディレクトリ構成
-## cmd
-アプリケーションのエントリーポイント
+## app
+frameworkに依存したコード
+echoやwire等
 
-#### 注意点
-- 最小限の機動処理のみに抑える（ビジネスロジックは禁止）
-- 依存注入の初期化場所でもあるので、初期化隠蔽のためのbootstrap.goなどは分けてOK
+### app/controller
+HTTPリクエストを受け取り、ビジネスロジック（Service層）を呼び出し、レスポンスを返す役割
 
+### app/DI
+DI関連。
+今回はwireを使った依存関係依存関係解決コードの解決コードの自動生成ツール配置
 
-## internal/app/
-アプリケーションの振る舞い（usecase）を実装する主役
+### app/router
+APIのエンドポイント作成
 
-### handlers/
-役割はWeb層（echoのルーティング最終地点）
-user_handler.go: /users/:id などのエンドポイントに対応
+## domain
+### controller
+app/controllerのinterface
 
-#### 注意点
-- echo.Contextが入ってくるのはこの層だけに留める（多層に依存しない）
-- バリデーション・レスポンス構築まで（ビジネスロジックはサービス層で）
+### datasource
+infra/datasourceのinterface
 
-### services/
-ビジネスロジックの本体。usecaseレイヤー
+### entity
+app,usecaseで利用するstructの管理
 
-#### 格納ファイル例
-user_service.go
-interfaces.go や user_interface.go（必要に応じて）
+### model
+sqlboilerが自動生成したmodelを管理
 
-#### 注意点
-- interface + 実装構造をとる
-- ロジックはrepositoryに依存し、handlerには依存しない
-- 単体テストが可能な構成にする（mockを差し込み可能に）
+### repository
+infra/repositoryのinterfaceを管理
 
+### service
+usecaseのinterface
 
-### repositories
-DBアクセス層層（インフラ層に相当）
+## infra
+### datasource
+複雑なクエリを生成し、呼び出し
+それ以外の処理は行わない
 
-#### 注意点
-- Interface定義はこの層に置く（サービス層から使われる立場）
-- GORMやSQLなど具体的な実装は変えられるようInterfaceで抽象化
+### repository
+呼び出したクエリに対して整形やキャッシュ管理等
 
-## internal/models
-ドメインモデルや構造体
+### things
+datasourceやrepositoryで実現できないことを管理
+ex）リトライ処理等
 
-#### 格納ファイル例
-user.go: DBエンティティ、アプリ内で持つUserモデル
-dto/ をサブディレクトリにしてリクエスト・レスポンス専用DTOを分けることも◎
+## usecase
+ビジネスロジック処理
 
-#### 注意点
-- DBエンティティとレスポンス構造体を分ける（密結合を避ける）
-- モデルはプレーンな構造体で、ビジネスロジックを持たない（Fat Modelを避ける）
-
-## internal/config
-設定の読み込みと管理
-
-#### 注意点
-- 設定はstructにマッピング
-- .envやviperなどで読み込む場合はパッケージに依存しすぎない設計が望ましい
-
-## pkg/utils
-汎用的なユーティリティコードや共通ライブラリ
-
-#### 格納ファイル例
-- hash.go: パスワードハッシュ関数
-- date.go: 日付フォーマット
-- jwt.go: JWT生成・検証
-
-#### 注意点
-- どの層からもimport可能になるので、依存方向に注意
-- 共通処理だが、「ロジックの責務」を持たないように注意
 
 # 設計思想的アドバイス
 - 責務の分離
   - パッケージごとに「1つの役割」を持たせ、責務を混在させない。
 - 依存の方向
-  - handler → service → repository の一方向。逆方向依存はNG（interface + DIで実現）。
+  - controller → service → repository の一方向。逆方向依存はNG（interface + DIで実現）。
 - interface重視
   - 特にservice/repositoryはinterfaceを用意し、実装と分離することでテストしやすくなる
 - Echo, GORMなどの外部依存を隔離

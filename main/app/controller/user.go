@@ -12,8 +12,6 @@ type UserController struct {
 	service service.UserService
 }
 
-// 依存関係
-
 func NewUserController(userService service.UserService) controller.User {
 	return &UserController{service: userService}
 }
