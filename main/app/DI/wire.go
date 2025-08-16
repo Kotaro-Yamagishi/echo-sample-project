@@ -4,45 +4,42 @@
 package di
 
 import (
-	"echoProject/main/app/controller"
-	con "echoProject/main/domain/controller"
-	"echoProject/main/infra/datasource"
-	"echoProject/main/infra/repository/user"
-	"echoProject/main/infra/things/mysql"
+	ctrcity "echoProject/main/app/controller/city"
+	ctrIF "echoProject/main/domain/controller"
+	ds "echoProject/main/infra/datasource"
+	repocity "echoProject/main/infra/repository/city"
 	"echoProject/main/infra/things/sqlboiler"
-	"echoProject/main/usecase"
+	uccity "echoProject/main/usecase/city"
 
 	"github.com/google/wire"
 )
 
 var infrastructureSet = wire.NewSet(
-	mysql.NewSqlHandler,
-	datasource.NewUserDataSource,
+	ds.NewCityDataSource,
 	sqlboiler.NewSQLBoilerImpl,
 )
 
 var repositorySet = wire.NewSet(
-	user.NewUserRepository,
+	repocity.NewCityRepository,
 )
 
 var usecaseSet = wire.NewSet(
-	usecase.NewUserService,
+	uccity.NewCityService,
 )
 
-
 var controllerSet = wire.NewSet(
-	controller.NewUserController,
+	ctrcity.NewCityController,
 )
 
 type ControllersSet struct {
-	UserController con.User
+	CityController ctrIF.City
 }
 
-type initializeDBSet struct{
+type initializeDBSet struct {
 	SqlBoiler sqlboiler.SQLBoiler
 }
 
-func InitializeController() (*ControllersSet,error) {
+func InitializeController() (*ControllersSet, error) {
 	wire.Build(
 		infrastructureSet,
 		repositorySet,

@@ -4,7 +4,37 @@
 package model
 
 var TableNames = struct {
-	Users string
+	Actor        string
+	Address      string
+	Category     string
+	City         string
+	Country      string
+	Customer     string
+	Film         string
+	FilmActor    string
+	FilmCategory string
+	FilmText     string
+	Inventory    string
+	Language     string
+	Payment      string
+	Rental       string
+	Staff        string
+	Store        string
 }{
-	Users: "users",
+	Actor:        "actor",
+	Address:      "address",
+	Category:     "category",
+	City:         "city",
+	Country:      "country",
+	Customer:     "customer",
+	Film:         "film",
+	FilmActor:    "film_actor",
+	FilmCategory: "film_category",
+	FilmText:     "film_text",
+	Inventory:    "inventory",
+	Language:     "language",
+	Payment:      "payment",
+	Rental:       "rental",
+	Staff:        "staff",
+	Store:        "store",
 }

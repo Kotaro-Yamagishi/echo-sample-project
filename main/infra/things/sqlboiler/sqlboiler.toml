@@ -6,7 +6,7 @@ pkgname = "model"
 add-global-variants = true
 
 [mysql]
-dbname = "go_sample"
+dbname = "sakila"
 host = "localhost"
 port = 3306
 user = "root"

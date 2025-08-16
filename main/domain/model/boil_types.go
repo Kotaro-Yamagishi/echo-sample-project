@@ -4,8 +4,13 @@
 package model
 
 import (
+	"bytes"
+	"database/sql/driver"
+	"encoding/json"
 	"strconv"
 
+	"github.com/aarondl/null/v8"
+	"github.com/aarondl/null/v8/convert"
 	"github.com/aarondl/sqlboiler/v4/boil"
 	"github.com/aarondl/strmangle"
 	"github.com/friendsofgo/errors"
@@ -49,4 +54,484 @@ func makeCacheKey(cols boil.Columns, nzDefaults []string) string {
 	str := buf.String()
 	strmangle.PutBuffer(buf)
 	return str
+}
+
+type FilmRating string
+
+// Enum values for FilmRating
+const (
+	FilmRatingG     FilmRating = "G"
+	FilmRatingPG    FilmRating = "PG"
+	FilmRatingPG_13 FilmRating = "PG-13"
+	FilmRatingR     FilmRating = "R"
+	FilmRatingNC_17 FilmRating = "NC-17"
+)
+
+func AllFilmRating() []FilmRating {
+	return []FilmRating{
+		FilmRatingG,
+		FilmRatingPG,
+		FilmRatingPG_13,
+		FilmRatingR,
+		FilmRatingNC_17,
+	}
+}
+
+func (e FilmRating) IsValid() error {
+	switch e {
+	case FilmRatingG, FilmRatingPG, FilmRatingPG_13, FilmRatingR, FilmRatingNC_17:
+		return nil
+	default:
+		return errors.New("enum is not valid")
+	}
+}
+
+func (e FilmRating) String() string {
+	return string(e)
+}
+
+func (e FilmRating) Ordinal() int {
+	switch e {
+	case FilmRatingG:
+		return 0
+	case FilmRatingPG:
+		return 1
+	case FilmRatingPG_13:
+		return 2
+	case FilmRatingR:
+		return 3
+	case FilmRatingNC_17:
+		return 4
+
+	default:
+		panic(errors.New("enum is not valid"))
+	}
+}
+
+// FilmNullRating is a nullable FilmRating enum type. It supports SQL and JSON serialization.
+type FilmNullRating struct {
+	Val   FilmRating
+	Valid bool
+}
+
+// FilmNullRatingFrom creates a new FilmRating that will never be blank.
+func FilmNullRatingFrom(v FilmRating) FilmNullRating {
+	return NewFilmNullRating(v, true)
+}
+
+// FilmNullRatingFromPtr creates a new FilmNullRating that be null if s is nil.
+func FilmNullRatingFromPtr(v *FilmRating) FilmNullRating {
+	if v == nil {
+		return NewFilmNullRating("", false)
+	}
+	return NewFilmNullRating(*v, true)
+}
+
+// NewFilmNullRating creates a new FilmNullRating
+func NewFilmNullRating(v FilmRating, valid bool) FilmNullRating {
+	return FilmNullRating{
+		Val:   v,
+		Valid: valid,
+	}
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (e *FilmNullRating) UnmarshalJSON(data []byte) error {
+	if bytes.Equal(data, null.NullBytes) {
+		e.Val = ""
+		e.Valid = false
+		return nil
+	}
+
+	if err := json.Unmarshal(data, &e.Val); err != nil {
+		return err
+	}
+
+	e.Valid = true
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler.
+func (e FilmNullRating) MarshalJSON() ([]byte, error) {
+	if !e.Valid {
+		return null.NullBytes, nil
+	}
+	return json.Marshal(e.Val)
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (e FilmNullRating) MarshalText() ([]byte, error) {
+	if !e.Valid {
+		return []byte{}, nil
+	}
+	return []byte(e.Val), nil
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (e *FilmNullRating) UnmarshalText(text []byte) error {
+	if text == nil || len(text) == 0 {
+		e.Valid = false
+		return nil
+	}
+
+	e.Val = FilmRating(text)
+	e.Valid = true
+	return nil
+}
+
+// SetValid changes this FilmNullRating value and also sets it to be non-null.
+func (e *FilmNullRating) SetValid(v FilmRating) {
+	e.Val = v
+	e.Valid = true
+}
+
+// Ptr returns a pointer to this FilmNullRating value, or a nil pointer if this FilmNullRating is null.
+func (e FilmNullRating) Ptr() *FilmRating {
+	if !e.Valid {
+		return nil
+	}
+	return &e.Val
+}
+
+// IsZero returns true for null types.
+func (e FilmNullRating) IsZero() bool {
+	return !e.Valid
+}
+
+// Scan implements the Scanner interface.
+func (e *FilmNullRating) Scan(value interface{}) error {
+	if value == nil {
+		e.Val, e.Valid = "", false
+		return nil
+	}
+	e.Valid = true
+	return convert.ConvertAssign((*string)(&e.Val), value)
+}
+
+// Value implements the driver Valuer interface.
+func (e FilmNullRating) Value() (driver.Value, error) {
+	if !e.Valid {
+		return nil, nil
+	}
+	return string(e.Val), nil
+}
+
+type FilmListRating string
+
+// Enum values for FilmListRating
+const (
+	FilmListRatingG     FilmListRating = "G"
+	FilmListRatingPG    FilmListRating = "PG"
+	FilmListRatingPG_13 FilmListRating = "PG-13"
+	FilmListRatingR     FilmListRating = "R"
+	FilmListRatingNC_17 FilmListRating = "NC-17"
+)
+
+func AllFilmListRating() []FilmListRating {
+	return []FilmListRating{
+		FilmListRatingG,
+		FilmListRatingPG,
+		FilmListRatingPG_13,
+		FilmListRatingR,
+		FilmListRatingNC_17,
+	}
+}
+
+func (e FilmListRating) IsValid() error {
+	switch e {
+	case FilmListRatingG, FilmListRatingPG, FilmListRatingPG_13, FilmListRatingR, FilmListRatingNC_17:
+		return nil
+	default:
+		return errors.New("enum is not valid")
+	}
+}
+
+func (e FilmListRating) String() string {
+	return string(e)
+}
+
+func (e FilmListRating) Ordinal() int {
+	switch e {
+	case FilmListRatingG:
+		return 0
+	case FilmListRatingPG:
+		return 1
+	case FilmListRatingPG_13:
+		return 2
+	case FilmListRatingR:
+		return 3
+	case FilmListRatingNC_17:
+		return 4
+
+	default:
+		panic(errors.New("enum is not valid"))
+	}
+}
+
+// FilmListNullRating is a nullable FilmListRating enum type. It supports SQL and JSON serialization.
+type FilmListNullRating struct {
+	Val   FilmListRating
+	Valid bool
+}
+
+// FilmListNullRatingFrom creates a new FilmListRating that will never be blank.
+func FilmListNullRatingFrom(v FilmListRating) FilmListNullRating {
+	return NewFilmListNullRating(v, true)
+}
+
+// FilmListNullRatingFromPtr creates a new FilmListNullRating that be null if s is nil.
+func FilmListNullRatingFromPtr(v *FilmListRating) FilmListNullRating {
+	if v == nil {
+		return NewFilmListNullRating("", false)
+	}
+	return NewFilmListNullRating(*v, true)
+}
+
+// NewFilmListNullRating creates a new FilmListNullRating
+func NewFilmListNullRating(v FilmListRating, valid bool) FilmListNullRating {
+	return FilmListNullRating{
+		Val:   v,
+		Valid: valid,
+	}
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (e *FilmListNullRating) UnmarshalJSON(data []byte) error {
+	if bytes.Equal(data, null.NullBytes) {
+		e.Val = ""
+		e.Valid = false
+		return nil
+	}
+
+	if err := json.Unmarshal(data, &e.Val); err != nil {
+		return err
+	}
+
+	e.Valid = true
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler.
+func (e FilmListNullRating) MarshalJSON() ([]byte, error) {
+	if !e.Valid {
+		return null.NullBytes, nil
+	}
+	return json.Marshal(e.Val)
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (e FilmListNullRating) MarshalText() ([]byte, error) {
+	if !e.Valid {
+		return []byte{}, nil
+	}
+	return []byte(e.Val), nil
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (e *FilmListNullRating) UnmarshalText(text []byte) error {
+	if text == nil || len(text) == 0 {
+		e.Valid = false
+		return nil
+	}
+
+	e.Val = FilmListRating(text)
+	e.Valid = true
+	return nil
+}
+
+// SetValid changes this FilmListNullRating value and also sets it to be non-null.
+func (e *FilmListNullRating) SetValid(v FilmListRating) {
+	e.Val = v
+	e.Valid = true
+}
+
+// Ptr returns a pointer to this FilmListNullRating value, or a nil pointer if this FilmListNullRating is null.
+func (e FilmListNullRating) Ptr() *FilmListRating {
+	if !e.Valid {
+		return nil
+	}
+	return &e.Val
+}
+
+// IsZero returns true for null types.
+func (e FilmListNullRating) IsZero() bool {
+	return !e.Valid
+}
+
+// Scan implements the Scanner interface.
+func (e *FilmListNullRating) Scan(value interface{}) error {
+	if value == nil {
+		e.Val, e.Valid = "", false
+		return nil
+	}
+	e.Valid = true
+	return convert.ConvertAssign((*string)(&e.Val), value)
+}
+
+// Value implements the driver Valuer interface.
+func (e FilmListNullRating) Value() (driver.Value, error) {
+	if !e.Valid {
+		return nil, nil
+	}
+	return string(e.Val), nil
+}
+
+type NicerButSlowerFilmListRating string
+
+// Enum values for NicerButSlowerFilmListRating
+const (
+	NicerButSlowerFilmListRatingG     NicerButSlowerFilmListRating = "G"
+	NicerButSlowerFilmListRatingPG    NicerButSlowerFilmListRating = "PG"
+	NicerButSlowerFilmListRatingPG_13 NicerButSlowerFilmListRating = "PG-13"
+	NicerButSlowerFilmListRatingR     NicerButSlowerFilmListRating = "R"
+	NicerButSlowerFilmListRatingNC_17 NicerButSlowerFilmListRating = "NC-17"
+)
+
+func AllNicerButSlowerFilmListRating() []NicerButSlowerFilmListRating {
+	return []NicerButSlowerFilmListRating{
+		NicerButSlowerFilmListRatingG,
+		NicerButSlowerFilmListRatingPG,
+		NicerButSlowerFilmListRatingPG_13,
+		NicerButSlowerFilmListRatingR,
+		NicerButSlowerFilmListRatingNC_17,
+	}
+}
+
+func (e NicerButSlowerFilmListRating) IsValid() error {
+	switch e {
+	case NicerButSlowerFilmListRatingG, NicerButSlowerFilmListRatingPG, NicerButSlowerFilmListRatingPG_13, NicerButSlowerFilmListRatingR, NicerButSlowerFilmListRatingNC_17:
+		return nil
+	default:
+		return errors.New("enum is not valid")
+	}
+}
+
+func (e NicerButSlowerFilmListRating) String() string {
+	return string(e)
+}
+
+func (e NicerButSlowerFilmListRating) Ordinal() int {
+	switch e {
+	case NicerButSlowerFilmListRatingG:
+		return 0
+	case NicerButSlowerFilmListRatingPG:
+		return 1
+	case NicerButSlowerFilmListRatingPG_13:
+		return 2
+	case NicerButSlowerFilmListRatingR:
+		return 3
+	case NicerButSlowerFilmListRatingNC_17:
+		return 4
+
+	default:
+		panic(errors.New("enum is not valid"))
+	}
+}
+
+// NicerButSlowerFilmListNullRating is a nullable NicerButSlowerFilmListRating enum type. It supports SQL and JSON serialization.
+type NicerButSlowerFilmListNullRating struct {
+	Val   NicerButSlowerFilmListRating
+	Valid bool
+}
+
+// NicerButSlowerFilmListNullRatingFrom creates a new NicerButSlowerFilmListRating that will never be blank.
+func NicerButSlowerFilmListNullRatingFrom(v NicerButSlowerFilmListRating) NicerButSlowerFilmListNullRating {
+	return NewNicerButSlowerFilmListNullRating(v, true)
+}
+
+// NicerButSlowerFilmListNullRatingFromPtr creates a new NicerButSlowerFilmListNullRating that be null if s is nil.
+func NicerButSlowerFilmListNullRatingFromPtr(v *NicerButSlowerFilmListRating) NicerButSlowerFilmListNullRating {
+	if v == nil {
+		return NewNicerButSlowerFilmListNullRating("", false)
+	}
+	return NewNicerButSlowerFilmListNullRating(*v, true)
+}
+
+// NewNicerButSlowerFilmListNullRating creates a new NicerButSlowerFilmListNullRating
+func NewNicerButSlowerFilmListNullRating(v NicerButSlowerFilmListRating, valid bool) NicerButSlowerFilmListNullRating {
+	return NicerButSlowerFilmListNullRating{
+		Val:   v,
+		Valid: valid,
+	}
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (e *NicerButSlowerFilmListNullRating) UnmarshalJSON(data []byte) error {
+	if bytes.Equal(data, null.NullBytes) {
+		e.Val = ""
+		e.Valid = false
+		return nil
+	}
+
+	if err := json.Unmarshal(data, &e.Val); err != nil {
+		return err
+	}
+
+	e.Valid = true
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler.
+func (e NicerButSlowerFilmListNullRating) MarshalJSON() ([]byte, error) {
+	if !e.Valid {
+		return null.NullBytes, nil
+	}
+	return json.Marshal(e.Val)
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (e NicerButSlowerFilmListNullRating) MarshalText() ([]byte, error) {
+	if !e.Valid {
+		return []byte{}, nil
+	}
+	return []byte(e.Val), nil
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (e *NicerButSlowerFilmListNullRating) UnmarshalText(text []byte) error {
+	if text == nil || len(text) == 0 {
+		e.Valid = false
+		return nil
+	}
+
+	e.Val = NicerButSlowerFilmListRating(text)
+	e.Valid = true
+	return nil
+}
+
+// SetValid changes this NicerButSlowerFilmListNullRating value and also sets it to be non-null.
+func (e *NicerButSlowerFilmListNullRating) SetValid(v NicerButSlowerFilmListRating) {
+	e.Val = v
+	e.Valid = true
+}
+
+// Ptr returns a pointer to this NicerButSlowerFilmListNullRating value, or a nil pointer if this NicerButSlowerFilmListNullRating is null.
+func (e NicerButSlowerFilmListNullRating) Ptr() *NicerButSlowerFilmListRating {
+	if !e.Valid {
+		return nil
+	}
+	return &e.Val
+}
+
+// IsZero returns true for null types.
+func (e NicerButSlowerFilmListNullRating) IsZero() bool {
+	return !e.Valid
+}
+
+// Scan implements the Scanner interface.
+func (e *NicerButSlowerFilmListNullRating) Scan(value interface{}) error {
+	if value == nil {
+		e.Val, e.Valid = "", false
+		return nil
+	}
+	e.Valid = true
+	return convert.ConvertAssign((*string)(&e.Val), value)
+}
+
+// Value implements the driver Valuer interface.
+func (e NicerButSlowerFilmListNullRating) Value() (driver.Value, error) {
+	if !e.Valid {
+		return nil, nil
+	}
+	return string(e.Val), nil
 }

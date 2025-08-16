@@ -4,4 +4,19 @@
 package model
 
 var ViewNames = struct {
-}{}
+	ActorInfo              string
+	CustomerList           string
+	FilmList               string
+	NicerButSlowerFilmList string
+	SalesByFilmCategory    string
+	SalesByStore           string
+	StaffList              string
+}{
+	ActorInfo:              "actor_info",
+	CustomerList:           "customer_list",
+	FilmList:               "film_list",
+	NicerButSlowerFilmList: "nicer_but_slower_film_list",
+	SalesByFilmCategory:    "sales_by_film_category",
+	SalesByStore:           "sales_by_store",
+	StaffList:              "staff_list",
+}

@@ -12,11 +12,11 @@ type SQLBoilerImpl struct {
 
 func NewSQLBoilerImpl() SQLBoiler {
 	sqlboiler := new(SQLBoilerImpl)
-    return  sqlboiler
+	return sqlboiler
 }
 
 func (s *SQLBoilerImpl) ConnectDB() *sql.DB {
-	db, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/go_sample?charset=utf8mb4&parseTime=True&loc=Local")
+	db, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/sakila?charset=utf8mb4&parseTime=True&loc=Local")
 	if err != nil {
 		log.Fatal(err)
 	}

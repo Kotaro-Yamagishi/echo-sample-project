@@ -7,13 +7,12 @@
 package di
 
 import (
-	"echoProject/main/app/controller"
-	controller2 "echoProject/main/domain/controller"
+	"echoProject/main/app/controller/city"
+	"echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource"
-	"echoProject/main/infra/repository/user"
-	"echoProject/main/infra/things/mysql"
+	"echoProject/main/infra/repository/city"
 	"echoProject/main/infra/things/sqlboiler"
-	"echoProject/main/usecase"
+	"echoProject/main/usecase/city"
 	"github.com/google/wire"
 )
 
@@ -21,12 +20,12 @@ import (
 
 func InitializeController() (*ControllersSet, error) {
 	sqlBoiler := sqlboiler.NewSQLBoilerImpl()
-	datasourceUser := datasource.NewUserDataSource(sqlBoiler)
-	userRepositoryUser := user.NewUserRepository(datasourceUser)
-	userService := usecase.NewUserService(userRepositoryUser)
-	controllerUser := controller.NewUserController(userService)
+	city := ds.NewCityDataSource(sqlBoiler)
+	repoIFCity := repocity.NewCityRepository(city)
+	ucIFCity := uccity.NewCityService(repoIFCity)
+	ctrIFCity := ctrcity.NewCityController(ucIFCity)
 	controllersSet := &ControllersSet{
-		UserController: controllerUser,
+		CityController: ctrIFCity,
 	}
 	return controllersSet, nil
 }
@@ -41,16 +40,16 @@ func InitializeDB() (*initializeDBSet, error) {
 
 // wire.go:
 
-var infrastructureSet = wire.NewSet(mysql.NewSqlHandler, datasource.NewUserDataSource, sqlboiler.NewSQLBoilerImpl)
+var infrastructureSet = wire.NewSet(ds.NewCityDataSource, sqlboiler.NewSQLBoilerImpl)
 
-var repositorySet = wire.NewSet(user.NewUserRepository)
+var repositorySet = wire.NewSet(repocity.NewCityRepository)
 
-var usecaseSet = wire.NewSet(usecase.NewUserService)
+var usecaseSet = wire.NewSet(uccity.NewCityService)
 
-var controllerSet = wire.NewSet(controller.NewUserController)
+var controllerSet = wire.NewSet(ctrcity.NewCityController)
 
 type ControllersSet struct {
-	UserController controller2.User
+	CityController ctrIF.City
 }
 
 type initializeDBSet struct {
