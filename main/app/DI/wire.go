@@ -5,8 +5,8 @@ package di
 
 import (
 	ctrcity "echoProject/main/app/controller/city"
-	ctrIF "echoProject/main/domain/controller"
-	ds "echoProject/main/infra/datasource"
+	"echoProject/main/domain/controller"
+	dscity "echoProject/main/infra/datasource/city"
 	repocity "echoProject/main/infra/repository/city"
 	"echoProject/main/infra/things/sqlboiler"
 	uccity "echoProject/main/usecase/city"
@@ -15,7 +15,7 @@ import (
 )
 
 var infrastructureSet = wire.NewSet(
-	ds.NewCityDataSource,
+	dscity.NewCityDataSource,
 	sqlboiler.NewSQLBoilerImpl,
 )
 
@@ -32,7 +32,7 @@ var controllerSet = wire.NewSet(
 )
 
 type ControllersSet struct {
-	CityController ctrIF.City
+	CityController controller.City
 }
 
 type initializeDBSet struct {

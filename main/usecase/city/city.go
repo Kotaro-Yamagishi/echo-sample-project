@@ -1,16 +1,16 @@
-package uccity
+package city
 
 import (
 	"echoProject/main/domain/entity"
-	repoIF "echoProject/main/domain/repository"
-	ucIF "echoProject/main/domain/usecase"
+	"echoProject/main/domain/repository"
+	"echoProject/main/domain/usecase"
 )
 
 type CityImpl struct {
-	repo repoIF.City
+	repo repository.City
 }
 
-func NewCityService(repo repoIF.City) ucIF.City {
+func NewCityService(repo repository.City) usecase.City {
 	return &CityImpl{repo: repo}
 }
 

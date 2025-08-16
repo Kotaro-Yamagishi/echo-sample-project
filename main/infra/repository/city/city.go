@@ -1,16 +1,16 @@
-package repocity
+package city
 
 import (
-	dsIF "echoProject/main/domain/datasource"
+	"echoProject/main/domain/datasource"
 	"echoProject/main/domain/entity"
-	repoIF "echoProject/main/domain/repository"
+	"echoProject/main/domain/repository"
 )
 
 type CityImpl struct {
-	ds dsIF.City
+	ds datasource.City
 }
 
-func NewCityRepository(ds dsIF.City) repoIF.City {
+func NewCityRepository(ds datasource.City) repository.City {
 	return &CityImpl{ds: ds}
 }
 

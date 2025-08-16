@@ -1,4 +1,4 @@
-package ctrIF
+package controller
 
 import (
 	"echoProject/main/domain/entity"

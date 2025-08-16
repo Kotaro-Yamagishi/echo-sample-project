@@ -1,4 +1,4 @@
-package repoIF
+package repository
 
 import "echoProject/main/domain/entity"
 

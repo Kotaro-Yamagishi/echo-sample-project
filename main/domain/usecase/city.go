@@ -1,4 +1,4 @@
-package ucIF
+package usecase
 
 import "echoProject/main/domain/entity"
 

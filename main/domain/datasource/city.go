@@ -1,4 +1,4 @@
-package dsIF
+package datasource
 
 import (
 	"echoProject/main/domain/model"

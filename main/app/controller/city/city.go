@@ -7,10 +7,10 @@ import (
 )
 
 type CityImpl struct {
-	uc ucIF.City
+	uc usecase.City
 }
 
-func NewCityController(uc ucIF.City) ctrIF.City {
+func NewCityController(uc usecase.City) controller.City {
 	return &CityImpl{uc: uc}
 }
 
