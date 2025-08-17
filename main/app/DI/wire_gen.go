@@ -7,12 +7,16 @@
 package di
 
 import (
-	"echoProject/main/app/controller/city"
+	city4 "echoProject/main/app/controller/city"
+	country4 "echoProject/main/app/controller/country"
 	"echoProject/main/domain/controller"
 	"echoProject/main/infra/datasource/city"
+	"echoProject/main/infra/datasource/country"
 	city2 "echoProject/main/infra/repository/city"
+	country2 "echoProject/main/infra/repository/country"
 	"echoProject/main/infra/things/sqlboiler"
 	city3 "echoProject/main/usecase/city"
+	country3 "echoProject/main/usecase/country"
 	"github.com/google/wire"
 )
 
@@ -23,9 +27,14 @@ func InitializeController() (*ControllersSet, error) {
 	datasourceCity := city.NewCityDataSource(sqlBoiler)
 	repositoryCity := city2.NewCityRepository(datasourceCity)
 	usecaseCity := city3.NewCityService(repositoryCity)
-	controllerCity := ctrcity.NewCityController(usecaseCity)
+	controllerCity := city4.NewCityController(usecaseCity)
+	datasourceCountry := country.NewCountryDataSource(sqlBoiler)
+	repositoryCountry := country2.NewCountryRepository(datasourceCountry)
+	usecaseCountry := country3.NewCountryService(repositoryCountry)
+	controllerCountry := country4.NewCountryController(usecaseCountry)
 	controllersSet := &ControllersSet{
-		CityController: controllerCity,
+		CityController:    controllerCity,
+		CountryController: controllerCountry,
 	}
 	return controllersSet, nil
 }
@@ -40,16 +49,17 @@ func InitializeDB() (*initializeDBSet, error) {
 
 // wire.go:
 
-var infrastructureSet = wire.NewSet(city.NewCityDataSource, sqlboiler.NewSQLBoilerImpl)
+var infrastructureSet = wire.NewSet(city.NewCityDataSource, country.NewCountryDataSource, sqlboiler.NewSQLBoilerImpl)
 
-var repositorySet = wire.NewSet(city2.NewCityRepository)
+var repositorySet = wire.NewSet(city2.NewCityRepository, country2.NewCountryRepository)
 
-var usecaseSet = wire.NewSet(city3.NewCityService)
+var usecaseSet = wire.NewSet(city3.NewCityService, country3.NewCountryService)
 
-var controllerSet = wire.NewSet(ctrcity.NewCityController)
+var controllerSet = wire.NewSet(city4.NewCityController, country4.NewCountryController)
 
 type ControllersSet struct {
-	CityController controller.City
+	CityController    controller.City
+	CountryController controller.Country
 }
 
 type initializeDBSet struct {
