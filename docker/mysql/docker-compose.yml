@@ -1,5 +1,16 @@
 version: "3.6"
 services:
+  app:
+      # deploy 時に image name を固定指定するために設定している
+      image: echo-sample
+      platform: linux/amd64
+      build:
+        context: ./app
+        dockerfile: ./docker/Dockerfile
+      ports:
+        - "8910:80"
+      env_file:
+        - ./app/.envrc
   db:
     image: mysql:8.0
     container_name: sakila_mysql

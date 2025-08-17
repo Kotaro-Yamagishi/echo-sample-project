@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+docs/
+*.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# Test files
+*_test.go
+test/
+
+# Build artifacts
+bin/
+dist/
+
+# Environment files
+.envrc
+.env.local
+
+# Node modules (if any)
+node_modules/
+
+# Go workspace
+go.work 
