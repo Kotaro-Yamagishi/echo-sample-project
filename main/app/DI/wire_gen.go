@@ -28,7 +28,10 @@ func InitializeController() (*ControllersSet, error) {
 	repositoryCity := city2.NewCityRepository(datasourceCity)
 	usecaseCity := city3.NewCityService(repositoryCity)
 	controllerCity := city4.NewCityController(usecaseCity)
-	datasourceCountry := country.NewCountryDataSource(sqlBoiler)
+	datasourceCountry, err := country.NewCountryDataSource(sqlBoiler)
+	if err != nil {
+		return nil, err
+	}
 	repositoryCountry := country2.NewCountryRepository(datasourceCountry)
 	usecaseCountry := country3.NewCountryService(repositoryCountry)
 	controllerCountry := country4.NewCountryController(usecaseCountry)

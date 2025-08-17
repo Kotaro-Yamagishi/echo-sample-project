@@ -20,7 +20,7 @@ func (db *CityImpl) Select() []entity.City {
 	for _, c := range cities {
 		entities = append(entities, entity.City{
 			CityID:     c.CityID,
-			City:       c.City,
+			City:       string(c.City),
 			CountryID:  c.CountryID,
 			LastUpdate: c.LastUpdate,
 		})

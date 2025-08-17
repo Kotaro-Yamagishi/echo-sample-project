@@ -6,7 +6,7 @@ import (
 	"echoProject/main/domain/datasource"
 	"echoProject/main/domain/model"
 	"echoProject/main/infra/things/sqlboiler"
-	"log"
+	"fmt"
 
 	"github.com/aarondl/sqlboiler/v4/boil"
 )
@@ -16,20 +16,20 @@ type CountryImpl struct {
 	sqlBoiler sqlboiler.SQLBoiler
 }
 
-func NewCountryDataSource(sqlBoiler sqlboiler.SQLBoiler) datasource.Country {
+func NewCountryDataSource(sqlBoiler sqlboiler.SQLBoiler) (datasource.Country, error) {
 	db := sqlBoiler.ConnectDB()
 	if db == nil {
-		log.Fatal("Failed to connect to the database")
+		return nil, fmt.Errorf("database error: failed to connect to the database")
 	}
-	return &CountryImpl{db: db, sqlBoiler: sqlBoiler}
+	return &CountryImpl{db: db, sqlBoiler: sqlBoiler}, nil
 }
 
-func (ds *CountryImpl) Select() model.CountrySlice {
+func (ds *CountryImpl) Select() (model.CountrySlice, error) {
 	countries, err := model.Countries().All(context.Background(), ds.db)
 	if err != nil {
-		log.Fatal(err)
+		return nil, fmt.Errorf("database error: failed to select countries: %w", err)
 	}
-	return countries
+	return countries, nil
 }
 
 func (ds *CountryImpl) Insert(country *model.Country) error {

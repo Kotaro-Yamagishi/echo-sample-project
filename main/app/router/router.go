@@ -29,7 +29,7 @@ func Init() {
 	})
 
 	e.GET("/countries", func(c echo.Context) error {
-		countries := ctr.CountryController.GetCountry()
+		countries := ctr.CountryController.GetCountry(c)
 		c.Bind(&countries)
 		return c.JSON(http.StatusOK, countries)
 	})

@@ -5,6 +5,6 @@ import (
 )
 
 type Country interface {
-	Select() model.CountrySlice
+	Select() (model.CountrySlice, error)
 	Insert(country *model.Country) error
 }
