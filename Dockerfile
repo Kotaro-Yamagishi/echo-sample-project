@@ -28,4 +28,9 @@ RUN go install -v github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2 &&
     go install go.uber.org/mock/mockgen@v0.4.0 && \
     go install -v github.com/go-delve/delve/cmd/dlv@v1.25.1
 
+
+
+# Set the default command to run air
+CMD ["air"]
+
  

@@ -1,1 +1,9 @@
 __debug_bin*
+
+.env
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store

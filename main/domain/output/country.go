@@ -1,7 +1,7 @@
 package output
 
 import (
-	"echoProject/main/domain/types"
+	"echoProject/domain/types"
 	"time"
 )
 

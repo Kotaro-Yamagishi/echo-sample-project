@@ -1,12 +1,12 @@
 package router
 
 import (
-	di "echoProject/main/app/DI"
+	di "echoProject/app/DI"
 	"fmt"
 	"net/http"
 	"os"
 
-	_ "echoProject/docs"
+	_ "echoProject/docs" // This is required for swagger
 
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"

@@ -4,16 +4,16 @@
 package di
 
 import (
-	ctrcity "echoProject/main/app/controller/city"
-	country "echoProject/main/app/controller/country"
-	"echoProject/main/domain/controller"
-	dscity "echoProject/main/infra/datasource/city"
-	dscountry "echoProject/main/infra/datasource/country"
-	repocity "echoProject/main/infra/repository/city"
-	repocountry "echoProject/main/infra/repository/country"
-	"echoProject/main/infra/things/sqlboiler"
-	uccity "echoProject/main/usecase/city"
-	uccountry "echoProject/main/usecase/country"
+	ctrcity "echoProject/app/controller/city"
+	country "echoProject/app/controller/country"
+	"echoProject/domain/controller"
+	dscity "echoProject/infra/datasource/city"
+	dscountry "echoProject/infra/datasource/country"
+	repocity "echoProject/infra/repository/city"
+	repocountry "echoProject/infra/repository/country"
+	"echoProject/infra/things/sqlboiler"
+	uccity "echoProject/usecase/city"
+	uccountry "echoProject/usecase/country"
 
 	"github.com/google/wire"
 )

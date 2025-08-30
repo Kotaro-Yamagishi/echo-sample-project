@@ -7,16 +7,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      no_cache: true
     ports:
       - "1324:1324"
+      - "40010:40010"  # delveデバッグポート
+    volumes:
+      - ./main:/main        # ソースコードをマウント
     env_file:
-      - .env
+      - main/.env
     depends_on:
       db:
         condition: service_healthy
     networks:
       - echo-network
-    restart: unless-stopped
 
   db:
     image: mysql:8.0

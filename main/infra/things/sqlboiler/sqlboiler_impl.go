@@ -19,11 +19,11 @@ func NewSQLBoilerImpl() SQLBoiler {
 
 func (s *SQLBoilerImpl) ConnectDB() *sql.DB {
 	// Get database connection parameters from environment variables
-	dbHost := getEnv("DB_HOST", "127.0.0.1")
+	dbHost := getEnv("DB_HOST", "localhost")
 	dbPort := getEnv("DB_PORT", "3306")
 	dbName := getEnv("DB_NAME", "sakila")
-	dbUser := getEnv("DB_USER", "root")
-	dbPassword := getEnv("DB_PASSWORD", "password")
+	dbUser := getEnv("DB_USER", "user")
+	dbPassword := getEnv("DB_PASSWORD", "passw0rd")
 
 	// Create connection string
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",

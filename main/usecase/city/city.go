@@ -1,9 +1,9 @@
 package city
 
 import (
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/repository"
-	"echoProject/main/domain/usecase"
+	"echoProject/domain/entity"
+	"echoProject/domain/repository"
+	"echoProject/domain/usecase"
 )
 
 type CityImpl struct {

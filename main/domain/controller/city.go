@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"echoProject/main/domain/entity"
+	"echoProject/domain/entity"
 )
 
 type City interface {

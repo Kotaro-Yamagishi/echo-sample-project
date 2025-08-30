@@ -1,0 +1,44 @@
+root = "."
+testdata_dir = "testdata"
+tmp_dir = "tmp_air"
+
+[build]
+  args_bin = []
+  bin = "./tmp_air/main"
+  cmd = "go build -gcflags='all=-N -l' -o ./tmp_air/main ./server.go"
+  delay = 1000
+  exclude_dir = ["assets", "tmp", "tmp_air", "vendor", "testdata"]
+  exclude_file = []
+  exclude_regex = ["_test.go"]
+  exclude_unchanged = false
+  follow_symlink = false
+  full_bin = "dlv --headless=true --listen=:40010 --api-version=2 --accept-multiclient --log --log-output=debugger exec --continue ./tmp_air/main"
+  include_dir = []
+  include_ext = ["go", "tpl", "tmpl", "html"]
+  include_file = []
+  kill_delay = "0s"
+  log = "build-errors.log"
+  poll = false
+  poll_interval = 0
+  rerun = false
+  rerun_delay = 500
+  send_interrupt = false
+  stop_on_root = false
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[log]
+  main_only = false
+  time = false
+
+[misc]
+  clean_on_exit = false
+
+[screen]
+  clear_on_rebuild = false
+  keep_scroll = true 

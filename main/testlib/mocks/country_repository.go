@@ -1,8 +1,8 @@
 package mocks
 
 import (
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/types"
+	"echoProject/domain/entity"
+	"echoProject/domain/types"
 	"time"
 )
 

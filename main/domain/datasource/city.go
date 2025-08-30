@@ -1,7 +1,7 @@
 package datasource
 
 import (
-	"echoProject/main/domain/model"
+	"echoProject/domain/model"
 )
 
 type City interface {

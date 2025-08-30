@@ -3,9 +3,9 @@ package country
 import (
 	"context"
 	"database/sql"
-	"echoProject/main/domain/datasource"
-	"echoProject/main/domain/model"
-	"echoProject/main/infra/things/sqlboiler"
+	"echoProject/domain/datasource"
+	"echoProject/domain/model"
+	"echoProject/infra/things/sqlboiler"
 	"fmt"
 
 	"github.com/aarondl/sqlboiler/v4/boil"

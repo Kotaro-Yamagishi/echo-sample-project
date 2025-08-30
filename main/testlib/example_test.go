@@ -4,9 +4,9 @@ import (
 	"errors"
 	"testing"
 
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/types"
-	"echoProject/main/testlib/mocks"
+	"echoProject/domain/entity"
+	"echoProject/domain/types"
+	"echoProject/testlib/mocks"
 )
 
 // TestMockUsage モックの使用例テスト

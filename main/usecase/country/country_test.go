@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/types"
-	"echoProject/main/testlib/mocks"
+	"echoProject/domain/entity"
+	"echoProject/domain/types"
+	"echoProject/testlib/mocks"
 )
 
 // 既存のモック定義を削除（testlib/mocksを使用）

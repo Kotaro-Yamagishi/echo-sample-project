@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"echoProject/main/domain/entity"
+	"echoProject/domain/entity"
 	"time"
 )
 

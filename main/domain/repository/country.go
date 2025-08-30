@@ -1,6 +1,6 @@
 package repository
 
-import "echoProject/main/domain/entity"
+import "echoProject/domain/entity"
 
 type Country interface {
 	Select() ([]entity.Country, error)

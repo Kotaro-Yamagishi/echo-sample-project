@@ -1,11 +1,11 @@
 package country
 
 import (
-	"echoProject/main/domain/datasource"
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/model"
-	"echoProject/main/domain/repository"
-	"echoProject/main/domain/types"
+	"echoProject/domain/datasource"
+	"echoProject/domain/entity"
+	"echoProject/domain/model"
+	"echoProject/domain/repository"
+	"echoProject/domain/types"
 	"fmt"
 )
 

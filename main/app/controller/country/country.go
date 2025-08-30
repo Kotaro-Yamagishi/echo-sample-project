@@ -1,10 +1,10 @@
 package country
 
 import (
-	"echoProject/main/domain/controller"
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/output"
-	"echoProject/main/domain/usecase"
+	"echoProject/domain/controller"
+	"echoProject/domain/entity"
+	"echoProject/domain/output"
+	"echoProject/domain/usecase"
 	"net/http"
 
 	"github.com/labstack/echo/v4"

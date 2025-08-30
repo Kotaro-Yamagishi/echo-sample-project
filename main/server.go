@@ -19,7 +19,7 @@
 package main
 
 import (
-	"echoProject/main/app/router"
+	"echoProject/app/router"
 )
 
 // @Summary Health check

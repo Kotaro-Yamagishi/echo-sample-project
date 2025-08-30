@@ -1,0 +1,133 @@
+basePath: /
+definitions:
+  entity.City:
+    properties:
+      city:
+        type: string
+      city_id:
+        type: integer
+      country_id:
+        type: integer
+      last_update:
+        type: string
+    type: object
+  output.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+      success:
+        type: boolean
+      timestamp:
+        type: string
+    type: object
+  output.SuccessResponse:
+    properties:
+      data: {}
+      success:
+        type: boolean
+      timestamp:
+        type: string
+    type: object
+host: localhost:1324
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample Echo server with Sakila database.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Echo Sample Project API
+  version: "1.0"
+paths:
+  /cities:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all cities from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.City'
+            type: array
+      summary: Get all cities
+      tags:
+      - cities
+  /countries:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all countries from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/output.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/output.ErrorResponse'
+      summary: Get all countries
+      tags:
+      - countries
+    post:
+      consumes:
+      - application/json
+      description: Add a new country to the database
+      parameters:
+      - description: Country object
+        in: body
+        name: country
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/output.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/output.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/output.ErrorResponse'
+      summary: Create a new country
+      tags:
+      - countries
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Get server health status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check
+      tags:
+      - health
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

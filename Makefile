@@ -13,38 +13,38 @@ help:
 # 開発モード（air使用）
 dev:
 	@echo "開発モードで起動中..."
-	air
+	cd main && air
 
 # ビルド
 build:
 	@echo "アプリケーションをビルド中..."
-	go build -o ./tmp/main ./main/server.go
+	cd main && go build -o ./tmp/main ./server.go
 
 # 実行
 run:
 	@echo "アプリケーションを起動中..."
-	go run main/server.go
+	cd main && go run server.go
 
 # クリーンアップ
 clean:
 	@echo "ビルドファイルを削除中..."
-	rm -rf ./tmp
-	rm -f build-errors.log
+	cd main && rm -rf ./tmp
+	cd main && rm -f build-errors.log
 
 # テスト
 test:
 	@echo "テストを実行中..."
-	go test ./...
+	cd main && go test ./...
 
 # Swaggerドキュメント生成
 swagger:
 	@echo "Swaggerドキュメントを生成中..."
-	swag init -g main/server.go -o docs
+	cd main && swag init -g server.go -o ../docs
 
 # 依存関係の整理
 deps:
 	@echo "依存関係を整理中..."
-	go mod tidy
+	cd main && go mod tidy
 
 # Docker起動
 docker-up:

@@ -1,9 +1,9 @@
 package city
 
 import (
-	"echoProject/main/domain/datasource"
-	"echoProject/main/domain/entity"
-	"echoProject/main/domain/repository"
+	"echoProject/domain/datasource"
+	"echoProject/domain/entity"
+	"echoProject/domain/repository"
 )
 
 type CityImpl struct {
